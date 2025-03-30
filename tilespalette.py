@@ -1,55 +1,36 @@
 import pygame
-from math import floor
 from button import Button
+from tilespalettecanvas import TilesPaletteCanvas
 
-SCROLL_BUTTON_HEIGHT = 32
-PALETTE_BACKGROUND = (50,50,50)
-PALETTE_COLUMNS = 4
+PALETTE_SCROLL_BUTTON_HEIGHT = 32
+PALETTE_COLUMNS = 4 #__name__=="__main__"
 
 class TilesPalette:
 	"""TilesPalette class"""
 	def __init__(self, width, height, tileset):
-		self.scroll_offset = 0
-		self.tileset = tileset
-		
-		self.button_up = Button(0, 0, width, SCROLL_BUTTON_HEIGHT)		
-		self.button_down = Button(0, height-SCROLL_BUTTON_HEIGHT, width, SCROLL_BUTTON_HEIGHT)
+		self.button_up = Button(0, 0, width, PALETTE_SCROLL_BUTTON_HEIGHT)		
+		self.button_down = Button(0, height-PALETTE_SCROLL_BUTTON_HEIGHT, width, PALETTE_SCROLL_BUTTON_HEIGHT)
+		self.canvas = TilesPaletteCanvas(0, PALETTE_SCROLL_BUTTON_HEIGHT, width, height, tileset)
+		self.canvas.load_tiles()
 		
 		self.surface = pygame.Surface((width, height)).convert()
-		self.palette_surface = pygame.Surface((width, height - SCROLL_BUTTON_HEIGHT*2)).convert()
-		self.palette_surface.fill(PALETTE_BACKGROUND)
 		
-		self.load_tiles()
-				
-	def load_tiles(self):
-		"load_tiles method"
-		i = 0
-		self.palette_surface.fill(PALETTE_BACKGROUND)
-		for tile in self.tileset.tiles[self.scroll_offset*PALETTE_COLUMNS:]:
-			x = (i % PALETTE_COLUMNS) * self.tileset.tiles_width
-			y = (floor(i / PALETTE_COLUMNS) * self.tileset.tiles_height )
-			self.palette_surface.blit(tile, (x, y))
-			i+=1
-		
-		self.surface.blit(self.palette_surface, (0, SCROLL_BUTTON_HEIGHT))
-				
-	def scroll(self, step):
-		"scroll method"
-		self.scroll_offset += step
-		if self.scroll_offset < 0:
-			self.scroll_offset = 0
-		self.load_tiles()
-		
+		#self.surface.blit(self.canvas.surface, (0, PALETTE_SCROLL_BUTTON_HEIGHT))
+
 	def update(self, events):
-		button_up = self.button_up.update(events)
-		button_down = self.button_down.update(events)
+		canvas_event = self.canvas.update(events)
+		button_up_event = self.button_up.update(events)
+		button_down_event = self.button_down.update(events)
+		
+		self.surface.blit(self.canvas.surface, self.canvas.rect)
 		self.surface.blit(self.button_up.surface, self.button_up.rect)
 		self.surface.blit(self.button_down.surface, self.button_down.rect)
 		
-		if button_up == pygame.MOUSEBUTTONDOWN:
-			self.scroll(-1)
-		elif button_down == pygame.MOUSEBUTTONDOWN:
-			self.scroll(1)
+		if button_up_event == pygame.MOUSEBUTTONDOWN:
+			self.canvas.scroll(-1)
+		elif button_down_event == pygame.MOUSEBUTTONDOWN:
+			self.canvas.scroll( 1)
+		
 	
 if __name__ == "__main__":
 	from sys import exit
