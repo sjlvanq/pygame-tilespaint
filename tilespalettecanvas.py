@@ -26,7 +26,7 @@ class TilesPaletteCanvas:
 			x = (i % PALETTE_COLUMNS) * self.tileset.tiles_width
 			y = (floor(i / PALETTE_COLUMNS) * self.tileset.tiles_height )
 			self.surface.blit(tile, (x, y))
-			if(self.selected_tile == i+self.scroll_offset):
+			if(self.selected_tile == i+self.scroll_offset*PALETTE_COLUMNS):
 				pygame.draw.polygon( self.surface,
 					PALETTE_BOOKMARK_COLOR,
 					[
