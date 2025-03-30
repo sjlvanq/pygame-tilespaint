@@ -5,6 +5,7 @@ class Tileset:
 	"""Tileset class"""
 	def __init__(self, filename, tile_width, tile_height):
 		self.tileset = pygame.image.load(filename).convert()
+		self.tiles_width, self.tiles_height = tile_width, tile_height
 		tileset_width, tileset_height = self.tileset.get_rect().size
 		self.tileset_cols = int(tileset_width / tile_width)
 		self.tileset_rows = int(tileset_height / tile_height)
