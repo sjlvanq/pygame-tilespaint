@@ -47,11 +47,11 @@ class TilesPaletteCanvas:
 	def update(self, events):
 		for e in events:
 			if e.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(e.pos):
-				map_x, map_y = self.getTileFromCoords(e.pos)
+				map_x, map_y = self.get_tile_from_coords(e.pos)
 				self.selected_tile = (self.scroll_offset * PALETTE_COLUMNS) + map_y * PALETTE_COLUMNS + map_x
 				self.load_tiles()
 
-	def getTileFromCoords(self, pos):
+	def get_tile_from_coords(self, pos):
 		map_x = floor((pos[0] - self.rect.x) / self.tileset.tiles_width)
 		map_y = floor((pos[1] - self.rect.y) / self.tileset.tiles_height)
 		return (map_x, map_y)
