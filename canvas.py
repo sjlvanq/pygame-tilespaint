@@ -26,7 +26,7 @@ class Canvas:
 			for tile_id in row:
 				if tile_id >= 0:
 					x = (i % len(row)) * self.tileset.tiles_width
-					y = (floor(i / len(self.map)) * self.tileset.tiles_height )
+					y = floor(i / len(row)) * self.tileset.tiles_height
 					self.surface.blit(self.tileset.tiles[int(tile_id)], (x, y))
 
 				i+=1

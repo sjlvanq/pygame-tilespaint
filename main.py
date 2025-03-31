@@ -8,7 +8,7 @@ PALETTE_COLUMNS = 4
 TILESET = 'floortileset.png'
 TILE_WIDTH = 32
 TILE_HEIGHT = 32
-MAP = full((10,10), -1)
+MAP = full((6,10), -1)
 
 def main():
 	pygame.init()
