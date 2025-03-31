@@ -7,15 +7,15 @@ PALETTE_COLUMNS = 4 #__name__=="__main__"
 
 class TilesPalette:
 	"""TilesPalette class"""
-	def __init__(self, width, height, tileset):
+	def __init__(self, columns, height, tileset):
+		width = tileset.tiles_width * columns
+
 		self.button_up = Button(0, 0, width, PALETTE_SCROLL_BUTTON_HEIGHT)		
-		self.button_down = Button(0, height-PALETTE_SCROLL_BUTTON_HEIGHT, width, PALETTE_SCROLL_BUTTON_HEIGHT)
+		self.button_down = Button(0, height - PALETTE_SCROLL_BUTTON_HEIGHT, width, PALETTE_SCROLL_BUTTON_HEIGHT)
 		self.canvas = TilesPaletteCanvas(0, PALETTE_SCROLL_BUTTON_HEIGHT, width, height, tileset)
 		self.canvas.load_tiles()
-		
+
 		self.surface = pygame.Surface((width, height)).convert()
-		
-		#self.surface.blit(self.canvas.surface, (0, PALETTE_SCROLL_BUTTON_HEIGHT))
 
 	def update(self, events):
 		canvas_event = self.canvas.update(events)
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 	screen.fill((255,255,255))
 	
 	tset = tileset.Tileset('floortileset.png', 32, 32)
-	tpal = TilesPalette(PALETTE_COLUMNS*tset.tiles_width, 350, tset)
+	tpal = TilesPalette(PALETTE_COLUMNS, 350, tset)
 	
 	print("Tileset image used in this prototype by gfx0 at OpenGameArt.Org\nhttps://opengameart.org/users/gfx0")
 	
