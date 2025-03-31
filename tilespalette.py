@@ -16,6 +16,7 @@ class TilesPalette:
 		self.canvas.load_tiles()
 
 		self.surface = pygame.Surface((width, height)).convert()
+		self.rect = self.surface.get_rect()
 
 	def update(self, events):
 		canvas_event = self.canvas.update(events)
