@@ -4,8 +4,6 @@ from sys import exit
 
 import tileset, tilespalette, canvas
 
-SCREEN_WIDTH = 500
-SCREEN_HEIGHT = 350
 PALETTE_COLUMNS = 4
 TILESET = 'floortileset.png'
 TILE_WIDTH = 32
@@ -13,14 +11,19 @@ TILE_HEIGHT = 32
 MAP = full((10,10), -1)
 
 def main():
-
 	pygame.init()
-	screen = pygame.display.set_mode((500, 350))
 	print("Tileset image used in this prototype by gfx0 at OpenGameArt.Org\nhttps://opengameart.org/users/gfx0")
 
+	screen = pygame.display.set_mode((500, 350))
+	screen_rect = screen.get_rect()
+
 	tset = tileset.Tileset(TILESET, TILE_WIDTH, TILE_HEIGHT)
-	tpal = tilespalette.TilesPalette(PALETTE_COLUMNS, SCREEN_HEIGHT, tset)
-	canv = canvas.Canvas(tpal.surface.get_rect().topright, MAP, tset)
+	tpal = tilespalette.TilesPalette(PALETTE_COLUMNS, screen_rect.height, tset)
+
+	canv_area = pygame.Rect(tpal.rect.x, 0, screen_rect.width - tpal.rect.width, screen_rect.height)
+	canv_area.topleft = tpal.rect.topright
+
+	canv = canvas.Canvas(canv_area, MAP, tset)
 
 	while True:
 		events = pygame.event.get()
