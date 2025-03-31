@@ -7,7 +7,7 @@ MAP = full((10,10), -1)
 
 class Canvas:
 	"""Canvas class"""
-	def __init__(self, pos, map, tileset):
+	def __init__(self, area_rect, map, tileset):
 		self.map = map
 		self.tileset = tileset
 		self.surface = pygame.Surface(( 
@@ -15,7 +15,7 @@ class Canvas:
 			len(map) * tileset.tiles_height
 		)).convert()
 		self.rect = self.surface.get_rect()
-		self.rect.topleft = pos
+		self.rect.center = area_rect.center
 		self.surface.fill(CANVAS_BACKGROUND)
 
 	def load_tiles(self):
@@ -63,8 +63,10 @@ if __name__ == "__main__":
 	screen.fill((255,255,255))
 	
 	tset = tileset.Tileset('floortileset.png', 32, 32)
-	canv = Canvas((0, 0), MAP, tset)
-		
+
+	canv_area = screen.get_rect()
+	canv = Canvas(canv_area, MAP, tset)
+
 	while True:
 		events = pygame.event.get()
 		for e in events:
@@ -73,5 +75,5 @@ if __name__ == "__main__":
 		
 		canv.update(events, 1) # selected_tile = 1
 		
-		screen.blit(canv.surface, ((0,0)))
+		screen.blit(canv.surface, canv.rect)
 		pygame.display.update()
