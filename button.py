@@ -7,7 +7,17 @@ BUTTON_SHADOW_BORDER_COLOR = (100, 100, 100)
 BUTTON_FACE_COLOR = (150, 150, 150)
 
 class Button:
-	"""Button class"""
+	"""
+	Button class.
+
+	Represents a button object.
+
+	@param x: X coordinate from the topleft corner.
+	@param y: Y coordinate from the topleft corner.
+	@param width
+	@param height
+
+	"""
 	def __init__(self, x, y, width, height):
 		self.is_pressed = False
 		self.surface = pygame.Surface((width, height)).convert()

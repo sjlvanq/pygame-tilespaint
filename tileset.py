@@ -2,7 +2,15 @@ import pygame
 from pygame.locals import *
 
 class Tileset:
-	"""Tileset class"""
+	"""
+	Class Tileset.
+
+	Represents a tileset.
+
+	This class loads a tileset image and provides methods to divide it
+	into individual tiles and retrieve them.
+
+	"""
 	def __init__(self, filename, tile_width, tile_height):
 		self.tileset = pygame.image.load(filename).convert()
 		self.tiles_width, self.tiles_height = tile_width, tile_height

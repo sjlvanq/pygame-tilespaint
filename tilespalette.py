@@ -6,7 +6,16 @@ PALETTE_SCROLL_BUTTON_HEIGHT = 32
 PALETTE_COLUMNS = 4 #__name__=="__main__"
 
 class TilesPalette:
-	"""TilesPalette class"""
+	"""
+	Canvas TilesPalette.
+
+	Represents a tiles palette panel with scroll buttons.
+
+	@param columns
+	@param height
+	@param tileset
+
+	"""
 	def __init__(self, columns, height, tileset):
 		width = tileset.tiles_width * columns
 

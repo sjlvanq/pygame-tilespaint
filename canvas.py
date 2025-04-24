@@ -6,7 +6,16 @@ CANVAS_BACKGROUND = (50, 50, 50)
 MAP = full((10,10), -1)
 
 class Canvas:
-	"""Canvas class"""
+	"""
+	Canvas class.
+
+	Represents the drawing area.
+
+	@param area_rect: The rectangular area where the canvas will be drawn.
+	@param map: A 2D array representing the tile map.
+	@param tileset
+
+	"""
 	def __init__(self, area_rect, map, tileset):
 		self.map = map
 		self.tileset = tileset

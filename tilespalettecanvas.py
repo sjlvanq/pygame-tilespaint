@@ -7,7 +7,18 @@ PALETTE_BACKGROUND = (50, 50, 50)
 PALETTE_BOOKMARK_COLOR = (255, 255, 255, 128)
 
 class TilesPaletteCanvas:
-	"""TilesPalette class"""
+	"""
+	Class TilesPaletteCanvas.
+
+	Represents a canvas that displays tiles in a palette.
+
+	@param x
+	@param y
+	@param width
+	@param height
+	@param tileset
+
+	"""
 	def __init__(self, x, y, width, height, tileset):
 		self.selected_tile = 0
 		self.scroll_offset = 0
