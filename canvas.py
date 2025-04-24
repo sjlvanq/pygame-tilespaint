@@ -27,8 +27,8 @@ class Canvas:
 		self.rect.center = area_rect.center
 		self.surface.fill(CANVAS_BACKGROUND)
 
-	def load_tiles(self):
-		"load_tiles method"
+	def draw_map(self):
+		"draw_map method"
 		i = 0
 		self.surface.fill(CANVAS_BACKGROUND)
 		for row in self.map:
@@ -56,7 +56,7 @@ class Canvas:
 					self.map[map_y][map_x] = selected_tile
 				elif e.button == 3:
 					self.map[map_y][map_x] = -1
-				self.load_tiles()
+				self.draw_map()
 	
 	def get_tile_from_coords(self, pos):
 		map_x = floor((pos[0] - self.rect.x) / self.tileset.tiles_width)
