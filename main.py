@@ -20,7 +20,10 @@ def main():
 	tset = tileset.Tileset(TILESET, TILE_WIDTH, TILE_HEIGHT)
 	tpal = tilespalette.TilesPalette(PALETTE_COLUMNS, screen_rect.height, tset)
 
-	canv_area = pygame.Rect(tpal.rect.x, 0, screen_rect.width - tpal.rect.width, screen_rect.height)
+	canv_area = pygame.Rect(
+		0, 0, # Initial position, will be updated in the next instruction
+		screen_rect.width - tpal.rect.width,
+		screen_rect.height)
 	canv_area.topleft = tpal.rect.topright
 
 	canv = canvas.Canvas(canv_area, MAP, tset)
