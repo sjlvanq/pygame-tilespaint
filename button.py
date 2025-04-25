@@ -70,7 +70,7 @@ if __name__ == "__main__":
 	while True:
 		events = pygame.event.get()
 		for e in events:
-			if e.type == QUIT:
+			if e.type == pygame.QUIT:
 				exit()
 				
 		button1.update(events)
