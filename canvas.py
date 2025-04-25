@@ -40,6 +40,17 @@ class Canvas:
 
 				i+=1
 	
+	def draw_tile(self, coord_x, coord_y, tile_index):
+		"draw_tile method"
+		self.surface.blit(self.tileset.tiles[tile_index], (coord_x, coord_y))
+
+	def erase_tile(self, coord_x, coord_y):
+		"erase_tile method"
+		blank_tile = pygame.Surface(
+				[self.tileset.tiles_width, self.tileset.tiles_height]).convert()
+		blank_tile.fill(CANVAS_BACKGROUND)
+		self.surface.blit(blank_tile, (coord_x, coord_y))
+
 	def scroll_x(self, step):
 		"scroll_x method"
 		pass
@@ -48,20 +59,24 @@ class Canvas:
 		"scroll_y method"
 		pass
 
-	def update(self, events, selected_tile):
+	def update(self, events, selected_tile_index):
 		for e in events:
 			if e.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(e.pos):
 				map_x, map_y = self.get_tile_from_coords(e.pos)
+				coord_x = map_x * self.tileset.tiles_width
+				coord_y = map_y * self.tileset.tiles_height
 				if e.button == 1:
-					self.map[map_y][map_x] = selected_tile
+					self.map[map_y][map_x] = selected_tile_index
+					self.draw_tile(coord_x, coord_y, selected_tile_index)
 				elif e.button == 3:
 					self.map[map_y][map_x] = -1
-				self.draw_map()
+					self.erase_tile(coord_x, coord_y)
 	
 	def get_tile_from_coords(self, pos):
 		map_x = floor((pos[0] - self.rect.x) / self.tileset.tiles_width)
 		map_y = floor((pos[1] - self.rect.y) / self.tileset.tiles_height)
 		return (map_x, map_y)
+
 
 if __name__ == "__main__":
 	from sys import exit
