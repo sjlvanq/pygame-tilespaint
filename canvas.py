@@ -61,16 +61,28 @@ class Canvas:
 
 	def update(self, events, selected_tile_index):
 		for e in events:
-			if e.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(e.pos):
+			if (
+				  (e.type == pygame.MOUSEBUTTONDOWN) or \
+				  (e.type == pygame.MOUSEMOTION and (e.buttons[0] or e.buttons[2])) \
+			) and self.rect.collidepoint(e.pos):
+
 				map_x, map_y = self.get_tile_from_coords(e.pos)
 				coord_x = map_x * self.tileset.tiles_width
 				coord_y = map_y * self.tileset.tiles_height
-				if e.button == 1:
+
+				buttons = [0,0,0]
+				if e.type == pygame.MOUSEMOTION:
+					buttons = e.buttons
+				elif e.type == pygame.MOUSEBUTTONDOWN:
+					buttons[e.button-1] = 1
+
+				if buttons[0]:
 					self.map[map_y][map_x] = selected_tile_index
 					self.draw_tile(coord_x, coord_y, selected_tile_index)
-				elif e.button == 3:
+				elif buttons[2]:
 					self.map[map_y][map_x] = -1
 					self.erase_tile(coord_x, coord_y)
+
 	
 	def get_tile_from_coords(self, pos):
 		map_x = floor((pos[0] - self.rect.x) / self.tileset.tiles_width)
