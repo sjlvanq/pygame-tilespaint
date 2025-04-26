@@ -70,11 +70,7 @@ class Canvas:
 				coord_x = map_x * self.tileset.tiles_width
 				coord_y = map_y * self.tileset.tiles_height
 
-				buttons = [0,0,0]
-				if e.type == pygame.MOUSEMOTION:
-					buttons = e.buttons
-				elif e.type == pygame.MOUSEBUTTONDOWN:
-					buttons[e.button-1] = 1
+				buttons = pygame.mouse.get_pressed()
 
 				if buttons[0]:
 					self.map[map_y][map_x] = selected_tile_index
