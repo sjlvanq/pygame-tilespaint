@@ -1,14 +1,13 @@
 import pygame
-from numpy import full
 from sys import exit
 
-import tileset, tilespalette, canvas
+import tileset, tilespalette, canvas, map
 
 PALETTE_COLUMNS = 4
 TILESET = 'floortileset.png'
 TILE_WIDTH = 32
 TILE_HEIGHT = 32
-MAP = full((6,10), -1)
+MAP_SIZE = (20, 20)
 
 def main():
 	pygame.init()
@@ -20,13 +19,14 @@ def main():
 	tset = tileset.Tileset(TILESET, TILE_WIDTH, TILE_HEIGHT)
 	tpal = tilespalette.TilesPalette(PALETTE_COLUMNS, screen_rect.height, tset)
 
+	# canv_area is the region where canv will be rendered
 	canv_area = pygame.Rect(
 		0, 0, # Initial position, will be updated in the next instruction
 		screen_rect.width - tpal.rect.width,
 		screen_rect.height)
 	canv_area.topleft = tpal.rect.topright
 
-	canv = canvas.Canvas(canv_area, MAP, tset)
+	canv = canvas.Canvas(canv_area, map.Map(MAP_SIZE), tset)
 
 	while True:
 		events = pygame.event.get()

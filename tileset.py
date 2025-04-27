@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import *
 
 class Tileset:
 	"""
@@ -14,6 +13,7 @@ class Tileset:
 	def __init__(self, filename, tile_width, tile_height):
 		self.tileset = pygame.image.load(filename).convert()
 		self.tiles_width, self.tiles_height = tile_width, tile_height
+		self.tile_size = (tile_width, tile_height)
 		tileset_width, tileset_height = self.tileset.get_rect().size
 		self.tileset_cols = int(tileset_width / tile_width)
 		self.tileset_rows = int(tileset_height / tile_height)
@@ -29,6 +29,9 @@ class Tileset:
 		tile = pygame.Surface([width, height]).convert()
 		tile.blit(self.tileset, (0, 0), (x*width, y*height, x*width+width, y*height+height))
 		return tile
+	
+	def get_tile_size(self):
+		return (self.tiles_width, self.tiles_width)
 
 
 if __name__ == "__main__":
@@ -49,7 +52,7 @@ if __name__ == "__main__":
 	frame = 0
 	while True:
 		for event in pygame.event.get():
-			if event.type == QUIT:
+			if event.type == pygame.QUIT:
 				exit()
 		
 
