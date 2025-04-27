@@ -123,7 +123,7 @@ class Canvas:
 					self.map_array.set_at(map_x + self.scroll_offset_x, map_y + self.scroll_offset_y, selected_tile_index)
 					self.draw_tile(coord_x, coord_y, selected_tile_index)
 				elif buttons[2]:
-					self.map.set_at(map_x + self.scroll_offset_x, map_y + self.scroll_offset_y, -1)
+					self.map_array.set_at(map_x + self.scroll_offset_x, map_y + self.scroll_offset_y, -1)
 					self.erase_tile(coord_x, coord_y)
 
 			elif e.type == pygame.KEYDOWN:
